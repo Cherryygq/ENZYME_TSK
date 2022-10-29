@@ -1,5 +1,4 @@
-% 2019-05-07 XiaobinTian xiaobin9652@163.com
-% 
+
 % load and preprocess dataset
 % construction the multi-view TSK fuzzy system
 % Calculate the performance of the constructed system
