@@ -1,6 +1,5 @@
 function [ best_acc_result, TSK_result ] = expt_mul_TSK( mulview_tr_cell, mulview_te_cell, tr_label, te_label, fold)
-% 2019-05-07 XiaobinTian xiaobin9652@163.com
-% 
+
 % construction the multi-view TSK fuzzy system
 % Calculate the performance of the constructed system
 
