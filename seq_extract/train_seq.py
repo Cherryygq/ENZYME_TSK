@@ -57,7 +57,7 @@ sess = tf.compat.v1.Session(config=tf.compat.v1.ConfigProto(gpu_options=gpu_opti
 #         print(e)
 
 # import all the neural network models
-from dl_models import get_dl_model
+from models import get_dl_model
 
 # Load Dataset
 # X,y = get_data()
