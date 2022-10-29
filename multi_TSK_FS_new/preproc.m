@@ -1,6 +1,5 @@
 function [v,U]=preproc(data,M)
-% 2019-05-07 XiaobinTian xiaobin9652@163.com
-% 
+
 % implementation of a Hierarchical Clustering Method
 % a detailed description is described in the following paper
 % :Transfer Representation Learning with TSK Fuzzy System, pengxu
