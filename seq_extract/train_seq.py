@@ -25,7 +25,7 @@ parser.add_argument('-b', '--batch', nargs='?', type=int, default=128, help='Bat
 parser.add_argument('-l', '--lr', nargs='?', type=float, default=1e-4, help='Learning rate for Adam optimizer')
 args = parser.parse_args()
 
-if args.model not in ["ANN", "CNN", "GRU", "LSTM", "BILSTM", "ABLE", "DEEPEC"]:
+if args.model not in [ "ABLE"]:
     print("Model", args.model, "is not defined. Please make changes to dl_models.py and this file")
     exit(0)
 print("Model", args.model)
