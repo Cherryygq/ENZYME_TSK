@@ -1,7 +1,6 @@
 function [ acc, pre, rec, f1 ] = ...
     confusion_matrix(labels, te_Y )
-% 2019-05-07 XiaobinTian xiaobin9652@163.com
-% 
+
 % Calculate the confusion matrix of the data set based on the predicted values
 % Calculate performance indicators based on the confusion matrix
 % 
