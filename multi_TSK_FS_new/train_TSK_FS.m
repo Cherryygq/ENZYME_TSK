@@ -1,6 +1,5 @@
 function [best_pg, best_v, best_b, best_TSK_result] = train_TSK_FS( tr_data, te_data, tr_label, te_label, folds_num, view_num, k)
-% 2019-05-07 XiaobinTian xiaobin9652@163.com
-% 
+
 % train classifier of each view
 
 Ms = [4:1:7];
