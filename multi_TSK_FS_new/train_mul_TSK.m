@@ -1,6 +1,5 @@
 function [TSK_cell, lamda_scale] = train_mul_TSK( mulview_data_cell, TSK_cell, Y, options)
-% 2019-05-07 XiaobinTian xiaobin9652@163.com
-% 
+
 % train classifier of multi-view
 
 view_nums = options.view_nums;
