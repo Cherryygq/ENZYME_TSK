@@ -1,6 +1,5 @@
 function zt=fromXtoZ(data,v,b)
-% 2019-05-07 XiaobinTian xiaobin9652@163.com
-% 
+
 % Convert X to Xg according to the antecedent parameters
 % 
 % data:X
