@@ -18,14 +18,14 @@ from sklearn.metrics import f1_score
 
 # check if user parameters are valid
 parser = argparse.ArgumentParser(description='Run one DL models on protein dataset.')
-parser.add_argument('--model', default='ABLE',
-                    help='Name of the model to run it on. Must be one of CNN, GRU, LSTM, BILSTM, ABLE, DEEPEC')
+parser.add_argument('--model', default='BABC',
+                    help='Name of the model to run it on. Must be one of BABC')
 parser.add_argument('-e', '--epochs', nargs='?', type=int, default=50, help='Number of epochs for training')
 parser.add_argument('-b', '--batch', nargs='?', type=int, default=128, help='Batch size for training')
 parser.add_argument('-l', '--lr', nargs='?', type=float, default=1e-4, help='Learning rate for Adam optimizer')
 args = parser.parse_args()
 
-if args.model not in [ "ABLE"]:
+if args.model not in [ "BABC"]:
     print("Model", args.model, "is not defined. Please make changes to dl_models.py and this file")
     exit(0)
 print("Model", args.model)
@@ -159,8 +159,7 @@ for train_index, test_index in kf.split(X, y):
                 y_resampled = np_utils.to_categorical(y_resampled)
 
                 all_data_current_fold = [X_resampled, y_resampled, X_val, y_val, X_test, y_test]
-                # with open(CACHED_FOLD_FILE, 'wb') as handle:
-                #     pickle.dump(all_data_current_fold, handle)
+
 
                 all_data_current_fold = None
 
@@ -185,8 +184,6 @@ for train_index, test_index in kf.split(X, y):
 
         start_train = time.time()
         model = get_dl_model(args.model)
-        # out = get_dl_model(args.model)
-        # model = Model(Input(shape=(3,100)), out)
         print(model.summary())
         opt = keras.optimizers.Adam(learning_rate=args.lr)
         model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
@@ -219,31 +216,22 @@ for train_index, test_index in kf.split(X, y):
         get_layer_output2 = K.function([layer_input], [layer_output2])
         # train_fea256 = np.array(get_layer_output(X_train)[0])
         train_fea6 = np.array(get_layer_output2(X_train)[0])
-        # print(train_fea6.shape)
 
         y_pred = model.predict(X_test)
-        # test_fea256 = np.array(get_layer_output(X_test)[0])
         y_labels = np.argmax(y_pred, axis=1)
         end_test = time.time()
         np.savez_compressed('./p6_npz_8_14/p6_8_14_ours_fold' + str(fold) + '.npz', train_fea6=train_fea6,
                             train_y=y_train, test_fea6=y_pred, test_y=y_test)
-        # np.savez_compressed('./p6_npz_8_14/p6_mat_ABLE_fold' + str(fold) + '_.npz', train_fea6=train_fea6,
-        #                     train_fea256=train_fea256, train_y=y_train, test_fea6=y_pred, test_fea256=test_fea256,
-        #                     test_y=y_test)  # ABLE
+         
         print("train_fea.shape", train_fea6.shape)
         print("y_train.shape", y_train.shape)
         print("test_fea.shape", y_pred.shape)
         print("test_y.shape", y_test.shape)
 
 
-        # dump raw predictions
         Y_SAVE_LOCATION_PREFIX = "./results/dl/" + args.model + "_" + sampling_method + "_" + str(fold) + "_" + str(
             args.epochs) + "_" + str(args.batch)
-        # np.save(Y_SAVE_LOCATION_PREFIX + "_PRED.npy", y_labels)
-        # np.save(Y_SAVE_LOCATION_PREFIX + "_TRUE.npy", y_test)
 
-        # print(f1_score(y_test, y_pred, average='macro'))
-        # print(f1_score(y_test, y_pred, average='weighted'))
         print(precision_recall_fscore_support(y_test, y_labels, average='macro'))
         print(precision_recall_fscore_support(y_test, y_labels, average='weighted'))
         print(classification_report(y_test, y_labels, output_dict=True))
@@ -278,7 +266,6 @@ for train_index, test_index in kf.split(X, y):
         with open('./pickle/8_14_ours_' + args.model + "_" + sampling_method + '_results.pickle', 'wb') as handle:
             pickle.dump(all_results, handle)
 
-        # buyao
         print("Model", args.model, "on fold", fold, "with sampling strategy", sampling_method, "completed in total of",
               round(time.time() - start_train, 2), "seconds")
         model = None
